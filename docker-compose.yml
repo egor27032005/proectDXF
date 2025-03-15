@@ -1,0 +1,53 @@
+services:
+  spring-boot-app:
+    networks:
+      - app-network  # Сервис для Spring Boot приложения
+    build:
+      context: ./spring-boot-app  # Указываем путь к Dockerfile Spring Boot
+    ports:
+      - "8080:8080"  # Пробрасываем порт 8080 на хост
+    depends_on:
+      - python-app
+    environment:
+      # - PYTHON_APP_URL=http://python-app:5000
+
+      - PYTHON_SERVICE_URL=http://python-app:5000/process-excel  # Переменная окружения для URL Python-приложения
+
+  python-app:
+    networks:
+      - app-network
+    build:
+      context: ./AutoCadDXF
+      dockerfile: Dockerfile
+    container_name: python-app
+    ports:
+      - "5000:5000"  # Порт для Python приложения (если нужно)
+networks:
+  app-network:
+    driver: bridge
+# services:
+#   spring-boot-app:
+#     build:
+#       context: ./spring-boot-app
+#       dockerfile: Dockerfile
+#     container_name: spring-boot-app
+#     ports:
+#       - "8080:8080"  # Порт для Spring Boot приложения
+#     volumes:
+#       - ./spring-boot-app:/app  # Монтирование кода для разработки (опционально)
+#     networks:
+#       - my-network
+
+#   python-app:
+#     build:
+#       context: ./ProectAutoCadDXF
+#       dockerfile: Dockerfile
+#     container_name: python-app
+#     ports:
+#       - "5000:5000"  # Порт для Python приложения (если нужно)
+#     volumes:
+#       - ./ProectAutoCadDXF:/app  # Монтирование кода для разработки (опционально)
+#     networks:
+#       - my-network
+#     depends_on:
+#       - spring-boot-app  # Зависимость от Spring Boot приложения (если нужно)

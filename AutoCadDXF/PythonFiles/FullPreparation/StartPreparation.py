@@ -1,5 +1,6 @@
 from PythonFiles.FullPreparation.PreparationKTPN1 import PreparationKTPN1
 from PythonFiles.FullPreparation.PreparationKTPN2 import PreparationKTPN2
+from PythonFiles.FullPreparation.PreparationNKY import PreparationNKY
 
 
 class StartPreparation:
@@ -19,6 +20,8 @@ class StartPreparation:
                 pr=PreparationKTPN1(self.data,self.msp)
             case "КТПН2":
                 pr=PreparationKTPN2(self.data,self.msp)
+            case "НКУ":
+                pr = PreparationNKY(self.data, self.msp)
 
 
 

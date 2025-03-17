@@ -1,13 +1,21 @@
 from flask import Flask, request, send_file
 import io
 import ezdxf
-import pandas as pd
 import os
+import logging
+import warnings
+from waitress import serve
+from openpyxl import load_workbook  # Импортируем openpyxl
 
 from PythonFiles.FullPreparation.StartPreparation import StartPreparation
 
+# Игнорируем предупреждение о Data Validation
+warnings.filterwarnings("ignore", category=UserWarning, message="Data Validation extension is not supported and will be removed")
+
 app = Flask(__name__)
 
+# Настройка логирования
+logging.basicConfig(level=logging.ERROR)
 
 @app.route('/process-excel', methods=['POST'])
 def process_excel():
@@ -22,32 +30,44 @@ def process_excel():
     if file.filename == '':
         return {"error": "No file selected"}, 400
 
+    # Проверяем, что файл имеет корректный формат
+    if not file.filename.endswith('.xlsx') and not file.filename.endswith('.xls'):
+        return {"error": "Unsupported file format. Only .xlsx and .xls are supported"}, 400
+
     try:
-        # Читаем Excel файл с помощью pandas
-        # df = pd.read_excel(file, header=None)
+        # Сохраняем файл временно на диск
+        temp_excel_file = "temp_input.xlsx"
+        file.save(temp_excel_file)
 
-        # Преобразуем DataFrame в список списков (переменная data)
-        # data = df.values.tolist()
+        # Читаем Excel файл с помощью openpyxl
+        wb = load_workbook(filename=temp_excel_file)
+        ws = wb.active
 
-        # Выводим выбранный параметр и данные из Excel (для демонстрации
+        # Преобразуем данные в список списков
+        data = []
+        for row in ws.iter_rows(values_only=True):
+            data.append(list(row))
+
+        # Удаляем временный Excel-файл
+        os.remove(temp_excel_file)
 
         # Создаем DXF документ
-        # doc = ezdxf.new("R2000")
-        # msp = doc.modelspace()
+        doc = ezdxf.new("R2000")
+        msp = doc.modelspace()
 
         # Пример добавления текста в DXF файл
-        # st = StartPreparation(data, option, msp, doc)
+        st = StartPreparation(data, option, msp, doc)
 
         # Временный файл для сохранения DXF
-        temp_file = "temp_output.dxf"
-        # doc.saveas(temp_file)  # Сохраняем DXF файл на диск
+        temp_dxf_file = "temp_output.dxf"
+        doc.saveas(temp_dxf_file)  # Сохраняем DXF файл на диск
 
         # Читаем временный файл в байтовый поток
-        with open(temp_file, "rb") as f:
+        with open(temp_dxf_file, "rb") as f:
             dxf_stream = io.BytesIO(f.read())
 
-        # Удаляем временный файл
-        # os.remove(temp_file)
+        # Удаляем временный DXF-файл
+        os.remove(temp_dxf_file)
 
         # Перемещаем указатель в начало потока
         dxf_stream.seek(0)
@@ -67,4 +87,5 @@ def process_excel():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    # Запуск через Waitress для production
+    serve(app, host="0.0.0.0", port=5000)

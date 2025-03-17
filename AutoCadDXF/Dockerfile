@@ -20,7 +20,10 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN pip install flask ezdxf openpyxl waitress
-COPY . .
+RUN apt-get update && apt-get install -y curl net-tools
+RUN chmod -R 777 /app
+COPY . ./
+ENV PYTHONPATH=""
 ENV PYTHONPATH="${PYTHONPATH}:/app"
 EXPOSE 5000
 CMD ["python", "PythonFiles/Exchanger/app.py"]

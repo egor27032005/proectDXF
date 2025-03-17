@@ -7,15 +7,21 @@ import warnings
 from waitress import serve
 from openpyxl import load_workbook  # Импортируем openpyxl
 
+from flask_cors import CORS
+
 from PythonFiles.FullPreparation.StartPreparation import StartPreparation
 
 # Игнорируем предупреждение о Data Validation
 warnings.filterwarnings("ignore", category=UserWarning, message="Data Validation extension is not supported and will be removed")
 
 app = Flask(__name__)
+CORS(app)
 
 # Настройка логирования
 logging.basicConfig(level=logging.ERROR)
+@app.route('/')
+def health_check():
+    return "OK", 200
 
 @app.route('/process-excel', methods=['POST'])
 def process_excel():

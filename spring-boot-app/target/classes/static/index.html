@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Excel File</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Подключаем CSS -->
+</head>
+<body>
+<div class="container">
+    <h1>Upload Excel File</h1>
+    <form id="uploadForm">
+        <label for="file">Choose Excel file:</label>
+        <input type="file" id="file" name="file" accept=".xlsx, .xls" required>
+
+        <label for="option">Select option:</label>
+        <select id="option" name="option" required>
+            <option value="КТПН1">КТПН1</option>
+            <option value="КТПН2">КТПН2</option>
+            <option value="НКУ">НКУ</option>
+            <option value="ЩИТ">ЩИТ</option>
+        </select>
+
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result"></div>
+</div>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const fileInput = document.getElementById('file');
+        const optionInput = document.getElementById('option');
+        const file = fileInput.files[0];
+        const option = optionInput.value;
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('option', option);
+
+        fetch('/api/upload-excel', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.blob();
+            } else {
+                return response.json().then(err => { throw new Error(err.error || 'Ошибка при загрузке файла'); });
+            }
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'output.dxf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            document.getElementById('result').innerText = 'Файл успешно загружен!';
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+            document.getElementById('result').innerText = 'Ошибка: ' + error.message;
+        });
+    });
+</script>
+</body>
+</html>

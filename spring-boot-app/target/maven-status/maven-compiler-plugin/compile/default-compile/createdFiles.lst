@@ -1,0 +1,5 @@
+com\example\demo\controller\FileController.class
+com\example\demo\DemoApplication.class
+CorsConfig.class
+com\example\demo\service\FileService$1.class
+com\example\demo\service\FileService.class

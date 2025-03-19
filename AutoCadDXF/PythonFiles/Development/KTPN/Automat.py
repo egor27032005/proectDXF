@@ -93,7 +93,7 @@ class Automat:
                 'insert': insertion_point,
                 'char_height': 2.5,
                 'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
+                'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
             })
         cord=[self.startX -5,self.startX + 1]

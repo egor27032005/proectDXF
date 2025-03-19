@@ -81,7 +81,7 @@ class Starter:
                 'char_height': 2.5,
                 'line_spacing_factor': 1.2,
                 'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
+                'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
             })
 
@@ -98,7 +98,7 @@ class Starter:
                 'char_height': 2.5,
 
                 'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
+                'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 5 # Аналог AttachmentPoint в pyautocad
             })
         # mtext = "T1\nТМГ-1600 кВа\n10/0.4"

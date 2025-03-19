@@ -24,7 +24,7 @@ class TableKTPN1:
         self.second_part_first()
         self.text_create()
         self.cap()
-        self.start_table1 = FirstPartTable(self.msp,self.startX - 22, self.startY)
+        self.start_table1 = FirstPartTable(self.msp,self.startX - 2, self.startY)
 
     def cap(self):
         for i in [0, 7.56, 15.76]:
@@ -42,7 +42,7 @@ class TableKTPN1:
             self.put_text(cap1[i], points[i], self.pointsY[0] + 8)
 
     def second_part_first(self):
-        self.pointsX = [self.startX + i - 22 for i in itertools.accumulate(itertools.chain([0, 90, 47, 44], list(itertools.repeat(35, self.countAutomat + 1))))]
+        self.pointsX = [self.startX + i -2 for i in itertools.accumulate(itertools.chain([0, 70, 47, 44], list(itertools.repeat(35, self.countAutomat + 1))))]
         self.pointsY = [self.startSecondPartY2 - i * 12 for i in range(12)]
 
     def text_create(self):
@@ -92,15 +92,17 @@ class TableKTPN1:
         if y == self.pointsY[0]:
             x0 = 16
             y0 = -5
+        if x==self.pointsX[0]:
+            x0=3
 
         mtext_content = "\n".join(line)
-        insertion_point_text = (x + x0+15, y + y0)
+        insertion_point_text = (x + x0, y + y0)
         self.msp.add_mtext(mtext_content, dxfattribs={
             'insert': insertion_point_text,
             'char_height': 2.5,
             'color': 1,
-            'style': 'RomansStyle',
-            'attachment_point': 2  # Аналог AttachmentPoint в pyautocad
+            'style': 'ROMANS',
+            'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
         })
 
     def update_table(self, index, number):
@@ -138,5 +140,3 @@ if __name__ == '__main__':
         ['Название линии', 'текст', 'текст', 'текст', 'текст', 'текст l;fas falskm l;adsk ;asldkf ;lasdkk', 'текст', 'текст', 'текст', 'текст', 'текст', 'текст', 'текст', 'текст'],
         ['Место установки', 'текст', 'текст', 'текст', 'текст df jfdsa sa sdff fiaj sadfas dfasdf sdfasdf afa ', 'текст', 'текст', 'текст', 'текст', 'текст', 'текст', 'текст', 'текст', 'текст']
     ]
-    dxf=ezdxf.new('R2010')
-    t = Table(dxf, 1000, 0, 10, text_list)

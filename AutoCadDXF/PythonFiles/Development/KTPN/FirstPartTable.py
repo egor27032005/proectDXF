@@ -4,7 +4,7 @@ class FirstPartTable:
     def __init__(self, msp,startX, startY):
         self.startX = startX
         self.startY = startY
-        self.length = 90
+        self.length = 70
         self.msp = msp  # Создаем новый DXF документ
 
 
@@ -34,16 +34,16 @@ class FirstPartTable:
             insertion_point_text = (self.startX + 3, self.coordText[i] - 3)
             insertion_point = (self.startX, self.coordText[i])
             second_point = (self.startX + self.length, self.coordText[i])
-
-            # Добавляем линию
             self.msp.add_line(insertion_point, second_point, dxfattribs={'color': 2})
-
-            # Добавляем текст
+            xp=0
+            if line=="Номер шкафа" or "Тип":
+                xp=18
+            insertion_point_text = (self.startX + 3, self.coordText[i] - 3)
             self.msp.add_mtext(mtext_content, dxfattribs={
                 'insert': insertion_point_text,
                 'char_height': 2.5,
                 'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
+                'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
             })
 

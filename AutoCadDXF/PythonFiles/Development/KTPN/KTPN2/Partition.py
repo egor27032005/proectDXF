@@ -13,6 +13,7 @@ class Partition:
         self.zeroPoint()
         self.transferringCoordinates()
         self.printer()
+        self.textPr()
 
     def files(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -48,16 +49,6 @@ class Partition:
         return sublist
 
     def printer(self):
-        insertion_point = (self.startX -24, self.startY- 40)
-        text = "\n".join(self.text[:6])
-        self.msp.add_mtext(text, dxfattribs={
-            'insert': insertion_point,
-            'char_height': 2.5,
-            'line_spacing_factor': 1.2,
-            'color': 1,
-            'style': 'RomansStyle',  # Применяем стиль Romans
-            'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
-        })
         for line in self.linesT:
             color = int(line[0])
             start_point = (line[1], line[2])
@@ -79,6 +70,18 @@ class Partition:
             formatted_points = [(points[i], points[i + 1]) for i in range(0, len(points), 2)]
             self.msp.add_lwpolyline(formatted_points, dxfattribs={'color': color})
         self.ozer_text()
+    def textPr(self):
+        insertion_point = (self.startX -24, self.startY- 40)
+        text = "\n".join(self.text[:6])
+        self.msp.add_mtext(text, dxfattribs={
+            'insert': insertion_point,
+            'char_height': 2.5,
+            'line_spacing_factor': 1.2,
+            'color': 1,
+            'style': 'ROMANS',  # Применяем стиль Romans
+            'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
+        })
+
 
     def ozer_text(self):
         x = self.startX

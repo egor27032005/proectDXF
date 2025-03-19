@@ -1,7 +1,7 @@
 import os
 
 from PythonFiles.Development.KTPN.Automat import Automat
-from PythonFiles.Development.NKY.Automats.Automat220 import Automat220
+from PythonFiles.Development.NKY.Automat220 import Automat220
 
 
 class Automat380(Automat220):

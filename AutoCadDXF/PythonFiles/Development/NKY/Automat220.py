@@ -76,23 +76,23 @@ class Automat220():
             self.msp.add_lwpolyline(formatted_points, dxfattribs={'color': color})
 
         # Добавление текста
-        for i in range(len(self.first_part_text)):
-            insertion_point = (self.startX + 5, self.startY - i * 5 - 40)
-            self.msp.add_mtext(self.first_part_text[i], dxfattribs={
-                'insert': insertion_point,
-                'char_height': 2.5,
-                'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
-                'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
-            })
-        cord = [self.startX - 5, self.startX + 1]
-        for i in range(len(self.second_part_text)):
-            insertion_point = (cord[i], self.startY - 190)
-            self.msp.add_mtext(self.second_part_text[i], dxfattribs={
-                'insert': insertion_point,
-                'char_height': 2.5,
-                'rotation': 90,
-                'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
-                'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
-            })
+        # for i in range(len(self.first_part_text)):
+        #     insertion_point = (self.startX + 5, self.startY - i * 5 - 40)
+        #     self.msp.add_mtext(self.first_part_text[i], dxfattribs={
+        #         'insert': insertion_point,
+        #         'char_height': 2.5,
+        #         'color': 1,
+        #         'style': 'RomansStyle',  # Применяем стиль Romans
+        #         'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
+        #     })
+        # cord = [self.startX - 5, self.startX + 1]
+        # for i in range(len(self.second_part_text)):
+        #     insertion_point = (cord[i], self.startY - 190)
+        #     self.msp.add_mtext(self.second_part_text[i], dxfattribs={
+        #         'insert': insertion_point,
+        #         'char_height': 2.5,
+        #         'rotation': 90,
+        #         'color': 1,
+        #         'style': 'RomansStyle',  # Применяем стиль Romans
+        #         'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
+        #     })

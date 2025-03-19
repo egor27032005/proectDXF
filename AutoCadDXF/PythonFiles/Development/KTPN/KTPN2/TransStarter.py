@@ -43,6 +43,6 @@ class TransStarter(Starter):
                 'char_height': 2.5,
 
                 'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
+                'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 5 # Аналог AttachmentPoint в pyautocad
             })

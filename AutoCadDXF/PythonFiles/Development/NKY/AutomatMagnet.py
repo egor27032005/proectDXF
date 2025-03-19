@@ -1,9 +1,10 @@
 import os
 
 from PythonFiles.Development.KTPN.Automat import Automat
+from PythonFiles.Development.NKY.Automat220 import Automat220
 
 
-class AutomatMagnet(Automat):
+class AutomatMagnet(Automat220):
     def __init__(self,msp, startX, startY, text:list=["A","B","E","D"]):
         super().__init__(msp, startX, startY, text)
         self.msp=msp

@@ -26,7 +26,7 @@ class Table2KTN:
         self.text_create()
 
     def second_part_first(self):
-        self.pointsX = [self.startX + i for i in itertools.accumulate(itertools.chain([0, 90, 47, 44], list(itertools.repeat(35, self.countAutomat1 + 1)), [54.72], list(itertools.repeat(35, self.countAutomat2 + 1)), [44, 47, 90]))]
+        self.pointsX = [self.startX + i for i in itertools.accumulate(itertools.chain([0, 70, 47, 44], list(itertools.repeat(35, self.countAutomat1 + 1)), [54.72], list(itertools.repeat(35, self.countAutomat2 + 1)), [44, 47, 90]))]
         self.pointsY = [self.startSecondPartY2 - i * 12 for i in range(12)]
 
     def cap(self):
@@ -84,7 +84,7 @@ class Table2KTN:
             'insert': insertion_point_text,
             'char_height': 2.5,
             'color': 1,
-            'style': 'RomansStyle',
+            'style': 'ROMANS',
             'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
         })
 

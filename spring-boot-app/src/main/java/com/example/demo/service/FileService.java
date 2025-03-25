@@ -18,9 +18,9 @@ public class FileService {
 //    @Value("${PYTHON_SERVICE_URL}")
 //    private String pythonServiceUrl;
 
-    private final String pythonServiceUrl = "http://localhost:5000/process-excel";
+//    private final String pythonServiceUrl = "http://localhost:5000/process-excel";
 //    @Value("${PYTHON_SERVICE_URL}")
-//    public String pythonServiceUrl = "http://python-app:5000/process-excel";
+    public String pythonServiceUrl = "http://python-app:5000/process-excel";
 
     public byte[] processExcel(MultipartFile file, String option) {
         try {

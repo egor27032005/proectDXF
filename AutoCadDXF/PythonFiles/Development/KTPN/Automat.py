@@ -8,7 +8,7 @@ from PythonFiles.Development.Consumer.Consumer import Consumer
 
 
 class Automat:
-    def __init__(self, msp, startX, startY, text:list=["A","B","E","D"]):
+    def __init__(self, msp, doc,startX, startY, text:list=["A","B","E","D"]):
         self.msp=msp
         self.text = text
         self.startX = startX
@@ -16,6 +16,7 @@ class Automat:
         self.consumer = self.text[-3]
         self.first_part_text=self.text[:6]
         self.second_part_text=[self.text[-2],self.text[-1]]
+        self.doc=doc
         self.files()
         self.zeroPoint()
         self.transferringCoordinates()
@@ -23,7 +24,7 @@ class Automat:
         self.getConsumer()
 
     def getConsumer(self):
-        cs=Consumer(self.msp,self.consumer,self.startX,self.startY-192.76)
+        cs=Consumer(self.msp,self.doc,self.consumer,self.startX,self.startY-192.76)
 
     def files(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -104,7 +105,7 @@ class Automat:
                 'char_height': 2.5,
                 'rotation': 90,
                 'color': 1,
-                'style': 'RomansStyle',  # Применяем стиль Romans
+                'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
             })
 

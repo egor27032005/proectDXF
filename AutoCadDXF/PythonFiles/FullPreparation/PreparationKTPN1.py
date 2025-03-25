@@ -4,14 +4,15 @@ from PythonFiles.Development.KTPN.KTPN1.KTPN1 import KTPN1
 
 
 class PreparationKTPN1:
-    def __init__(self,data,msp):
+    def __init__(self,data,msp,doc):
         self.msp=msp
         self.data=data
+        self.doc=doc
         self.new_array = self.reorder_lists(self.convert_to_strings(self.data))
         self.arrAutomat = self.automat_create(self.new_array[:11])
         self.arrTable = self.new_array[13:]
         self.countAutomat = self.processing_line_numbers()
-        self.ktp = KTPN1(self.msp,self.countAutomat, self.arrAutomat, self.arrTable)
+        self.ktp = KTPN1(self.msp,self.doc,self.countAutomat, self.arrAutomat, self.arrTable)
 
     def convert_to_strings(self, nested_list):
         ar = [[str(item) if str(item) != "nan" else "" for item in sublist] for sublist in nested_list]

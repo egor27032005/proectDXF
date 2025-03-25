@@ -34,10 +34,10 @@ class RiderNew:
                 line=[circle.color,*circle.center[0:2], circle.radius]
                 l = ''.join(str(x) + " " for x in line)
                 file.write(l + '\n')
-        with open('arcs.txt', 'w') as file:
-            for arc in self.arcs:
-                l = ''.join(str(x) + " " for x in arc)
-                file.write(l + '\n')
+        # with open('arcs.txt', 'w') as file:
+        #     for arc in self.arcs:
+        #         l = ''.join(str(x) + " " for x in arc)
+        #         file.write(l + '\n')
         with open('polyline.txt', 'w') as file:
             for polyline in self.polylines:
                 l = ''.join(str(x) + " " for x in itertools.chain([polyline.color],polyline.coordinates))

@@ -10,10 +10,11 @@ from PythonFiles.Development.KTPN.Сover import Cover
 
 
 class KTPN2:
-    def __init__(self,msp,countAutomat1,countAutomat2,text_table,automat_table,text_part):
+    def __init__(self,msp,doc,countAutomat1,countAutomat2,text_table,automat_table,text_part):
         self.msp=msp
         self.countAutomat1 = countAutomat1
         self.countAutomat2 = countAutomat2
+        self.doc=doc
         self.text_table = text_table
         self.automat_table = automat_table
         self.text_part = text_part
@@ -34,7 +35,7 @@ class KTPN2:
         pointsAutomatX1 = [x * 35 + self.startAutomatX for x in range(self.countAutomat1)]
         pointsAutomatX2 = [x * 35 + pointsAutomatX1[-1] + 86 for x in range(self.countAutomat2)]
         self.pointsAutomatX = list(itertools.chain(pointsAutomatX1, pointsAutomatX2))
-        self.automats = [Automat( self.msp,self.pointsAutomatX[x], self.startAutomatY, self.automat_table[x + 2]) for x
+        self.automats = [Automat( self.msp,self.doc,self.pointsAutomatX[x], self.startAutomatY, self.automat_table[x + 2]) for x
                          in range(len(self.pointsAutomatX))]
         self.partition = Partition(self.msp, pointsAutomatX2[0] - 29.125, self.startAutomatY, self.text_part)
         autDir = AutomaticDirect(self.msp, pointsAutomatX1[0] - 59, pointsAutomatX1[-1] +35, self.startAutomatY, "r")

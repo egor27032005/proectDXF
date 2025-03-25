@@ -5,12 +5,13 @@ from PythonFiles.Development.NKY.Automat220 import Automat220
 
 
 class Automat380(Automat220):
-    def __init__(self,msp, startX, startY, text:list=["A","B","E","D"]):
-        super().__init__(msp, startX, startY, text)
+    def __init__(self,msp, doc,startX, startY,res,consumer,text:list=["A","B","E","D"],cabelName="3 жильный с 0"):
+        super().__init__(msp, doc,startX, startY,res, consumer,text,cabelName)
         self.msp=msp
         self.startX=startX
         self.startY=startY
         self.text=text
+        self.doc=doc
     def files(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
         file_path1 = os.path.join(current_dir, "../../../AbTxtFiles/NKY/Automat380Files/lines.txt")

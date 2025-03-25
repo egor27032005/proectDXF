@@ -2,26 +2,29 @@ from PythonFiles.Development.NKY.NKY import NKY
 
 
 class PreparationNKY:
-    def __init__(self,data,msp):
+    def __init__(self,data,msp,doc):
         self.data=data
         self.msp=msp
+        self.doc=doc
+        for d in self.data:
+            print(d)
         self.automat_consumers=self.find_and_combine_elements(data)
         self.new_array = self.reorder_lists(self.convert_to_strings(self.data))
         self.arrAutomat = self.automat_create(self.new_array[:11])
-        self.arrTable = [sublist + [sublist[0]] for sublist in self.new_array[13:]]
-        for i in range(3):
-            self.arrTable[0].insert(-1, "")
+        # self.arrTable = [sublist + [sublist[0]] for sublist in self.new_array[13:]]
+        # for i in range(3):
+        #     self.arrTable[0].insert(-1, "")
         # sum(self.arrTable[0],[])
         self.get_count_automat()
         self.del_nan()
-        for i in self.automat_consumers:
-            print(i)
-        self.nky=NKY(self.msp,self.count1, self.count2,self.automat_consumers)
+        self.col=self.transpose(self.new_array[:-11])
+
+        self.nky=NKY(self.msp,self.count1, self.count2,self.automat_consumers,self.doc)
 
     def find_and_combine_elements(self,data):
-        tip_automat = next((item[2:] for item in data if item[0] == "ТИП автомата"), None)
-        vid_kabelya = next((item[2:] for item in data if item[0] == "Вид кабеля"), None)
-        potrebiteli = next((item[2:] for item in data if item[0] == "Потребители"), None)
+        tip_automat = next((item[1:] for item in data if item[0] == "ТИП автомата"), None)
+        vid_kabelya = next((item[1:] for item in data if item[0] == "Вид кабеля"), None)
+        potrebiteli = next((item[1:] for item in data if item[0] == "Потребители"), None)
         result = []
         if tip_automat:
             result.append(tip_automat)
@@ -39,9 +42,9 @@ class PreparationNKY:
         for list in self.new_array:
             if "номер линии" in [str(item).lower() for item in list]:
                 ind = list.index("ШС")
-                self.count1 = ind - 4
-                self.count2 = len(list) - self.count1-4
-                self.ar = self.pad_lists(self.arrTable, len(list) + 3)
+                self.count1 = ind - 1
+                self.count2 = len(list) - self.count1-2
+                # self.ar = self.pad_lists(self.arrTable, len(list) + 3)
                 self.part = self.arrAutomat.pop(ind - 2)
 
 
@@ -80,8 +83,21 @@ class PreparationNKY:
                 reordered_list.append(sublist)
         return reordered_list
 
-    def pad_lists(self,list_of_lists, target_length):
-        return [inner_list + [''] * (target_length - len(inner_list)) for inner_list in list_of_lists]
+    # def pad_lists(self,list_of_lists, target_length):
+    #     return [inner_list + [''] * (target_length - len(inner_list)) for inner_list in list_of_lists]
 
     def del_nan(self):
-        self.automat_consumers=[[j for j in i if str(j) != "nan"] for i in self.automat_consumers ]
+        self.automat_consumers=[[j.replace("\n", "") for j in i if str(j) != "nan"] for i in self.automat_consumers ]
+
+    def transpose(self,matrix):
+        if not matrix:
+            return []
+        rows = len(matrix)
+        cols = len(matrix[0])
+        transposed = []
+        for j in range(cols):
+            new_row = []
+            for i in range(rows):
+                new_row.append(matrix[i][j])
+            transposed.append(new_row)
+        return transposed

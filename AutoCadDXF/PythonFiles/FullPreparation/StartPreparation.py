@@ -4,7 +4,7 @@ import ezdxf
 
 from PythonFiles.FullPreparation.PreparationKTPN1 import PreparationKTPN1
 from PythonFiles.FullPreparation.PreparationKTPN2 import PreparationKTPN2
-from PythonFiles.FullPreparation.PreparationNKY import PreparationNKY
+from PythonFiles.FullPreparation.PreparationNKY2 import PreparationNKY
 from PythonFiles.FullPreparation.PreparationTit import PreparationTit
 
 
@@ -32,11 +32,11 @@ class StartPreparation:
     def distribution(self):
         match self.type:
             case "КТПН1":
-                self.pr=PreparationKTPN1(self.data,self.msp)
+                self.pr=PreparationKTPN1(self.data,self.msp,self.doc)
             case "КТПН2":
-                self.pr=PreparationKTPN2(self.data,self.msp)
+                self.pr=PreparationKTPN2(self.data,self.msp,self.doc)
             case "НКУ":
-                self.pr = PreparationNKY(self.data, self.msp)
+                self.pr = PreparationNKY(self.data, self.msp,self.doc)
 
     import ezdxf
 

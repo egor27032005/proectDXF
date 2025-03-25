@@ -35,9 +35,6 @@ class FirstPartTable:
             insertion_point = (self.startX, self.coordText[i])
             second_point = (self.startX + self.length, self.coordText[i])
             self.msp.add_line(insertion_point, second_point, dxfattribs={'color': 2})
-            xp=0
-            if line=="Номер шкафа" or "Тип":
-                xp=18
             insertion_point_text = (self.startX + 3, self.coordText[i] - 3)
             self.msp.add_mtext(mtext_content, dxfattribs={
                 'insert': insertion_point_text,

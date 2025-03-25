@@ -3,10 +3,20 @@ import os
 from PythonFiles.Development.KTPN.Starter import Starter
 
 
-class TransStarter(Starter):
+class TransStarter:
     def __init__(self, msp,startX, startY, textInf):
-        super().__init__(msp,startX, startY, textInf)
-        self.first_part_text_cord = [(self.startX - 70, self.startY - 55), (self.startX - 1021, self.startY - 55)]
+        self.textInf = textInf
+        self.startX = startX
+        self.startY = startY
+        self.msp = msp
+        self.first_part_text = [a[:6] for a in textInf]
+        self.first_part_text_cord = [(self.startX - 85, self.startY - 55), (self.startX - 118, self.startY - 55)]
+        self.files()
+        self.zeroPoint()
+        self.transferringCoordinates()
+        self.printer()
+        self.text()
+        self.other_text()
 
     def files(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -21,7 +31,10 @@ class TransStarter(Starter):
             self.polylines = [list(map(float, line.split())) for line in file]
         with open(file_path3) as file:
             self.circle = [list(map(float, line.split())) for line in file]
-
+    def transferringCoordinates(self):
+        self.linesT = [self.transform(line) for line in self.lines]
+        self.polylinesT = [self.transform(line) for line in self.polylines]
+        self.circleT = [[cir[0], cir[1] + self.distanceX, cir[2] + self.distanceY, cir[3]] for cir in self.circle]
     def zeroPoint(self):
         max_list = max(self.lines, key=lambda x: x[1])
         self.x, self.y = max_list[1], max(max_list[2], max_list[4])
@@ -46,3 +59,40 @@ class TransStarter(Starter):
                 'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 5 # Аналог AttachmentPoint в pyautocad
             })
+    def transform(self, sublist):
+        for i in range(len(sublist)):
+            if i == 0:
+                continue  # Нулевой элемент не изменяем
+            elif i % 2 == 0:
+                sublist[i] += self.distanceY  # Чётные позиции
+            else:
+                sublist[i] += self.distanceX  # Нечётные позиции
+        return sublist
+    def text(self):
+        for i in range(len(self.first_part_text)):
+            text="\n".join(self.first_part_text[i])
+            self.msp.add_mtext(text, dxfattribs={
+                'insert': self.first_part_text_cord[i],
+                'char_height': 2.5,
+                'line_spacing_factor': 1.2,
+                'color': 1,
+                'style': 'ROMANS',  # Применяем стиль Romans
+                'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
+            })
+    def printer(self):
+        for line in self.linesT:
+            color = int(line[0])
+            start = (line[1], line[2])
+            end = (line[3], line[4])
+            self.msp.add_line(start, end, dxfattribs={'color': color})
+
+        for circle in self.circleT:
+            color = int(circle[0])
+            center = (circle[1], circle[2])
+            radius = circle[-1]
+            self.msp.add_circle(center, radius, dxfattribs={'color': color})
+
+        for number in self.polylinesT:
+            color = int(number[0])
+            points = list(zip(number[1::2], number[2::2]))
+            self.msp.add_lwpolyline(points, dxfattribs={'color': color})

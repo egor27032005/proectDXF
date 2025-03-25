@@ -2,9 +2,10 @@ import ezdxf
 
 from PythonFiles.Development.KTPN.KTPN2.KTPN2 import KTPN2
 class PreparationKTPN2:
-    def __init__(self,data,msp):
+    def __init__(self,data,msp,doc):
         self.msp = msp
         self.data = data
+        self.doc=doc
         self.new_array = self.reorder_lists(self.convert_to_strings(self.data))
         self.arrAutomat = self.automat_create(self.new_array[:11])
         self.arrTable = [sublist + [sublist[0]] for sublist in self.new_array[13:]]
@@ -12,7 +13,7 @@ class PreparationKTPN2:
             self.arrTable[0].insert(-1,"")
         # sum(self.arrTable[0],[])
         self.get_count_automat()
-        self.ktpn2=KTPN2(self.msp, self.count1, self.count2-self.count1+1, self.arrTable,self.arrAutomat,self.part)
+        self.ktpn2=KTPN2(self.msp, self.doc,self.count1, self.count2-self.count1+1, self.arrTable,self.arrAutomat,self.part)
 
 
 

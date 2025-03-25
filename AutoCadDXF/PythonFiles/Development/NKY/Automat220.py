@@ -47,10 +47,8 @@ class Automat220():
     def reserve(self):
         max_distance = 79  # Максимальное допустимое расстояние
         clipped_lines = []  # Список для хранения обрезанных прямых
-
         for line in self.linesT:
             color, x1, y1, x2, y2 = line  # Распаковываем данные прямой
-
             # Проверяем, находятся ли обе точки в допустимой зоне
             if abs(y1 - self.startY) <= max_distance and abs(y2 - self.startY) <= max_distance:
                 # Если обе точки в зоне, добавляем прямую без изменений
@@ -64,7 +62,6 @@ class Automat220():
                 if abs(y2 - self.startY) > max_distance:
                     # Если вторая точка выходит за пределы, обрезаем её
                     y2 = self.startY + max_distance if y2 > self.startY else self.startY - max_distance
-
                 # Добавляем обрезанную прямую в список
                 clipped_lines.append([color, x1, y1, x2, y2])
 

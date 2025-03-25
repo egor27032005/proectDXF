@@ -5,6 +5,8 @@ class CableType:
     def __init__(self,msp,name,x,y):
         self.msp=msp
         self.name=name
+        if len(self.name)<3:
+            self.name="3 жильный с 0"
         self.x=x
         self.y=y
         self.count=int(self.name.strip()[0])

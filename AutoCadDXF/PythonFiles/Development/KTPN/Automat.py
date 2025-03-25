@@ -5,6 +5,7 @@ from ezdxf import units
 import re
 
 from PythonFiles.Development.Consumer.Consumer import Consumer
+from PythonFiles.Development.KTPN.CableType import CableType
 
 
 class Automat:
@@ -13,18 +14,26 @@ class Automat:
         self.text = text
         self.startX = startX
         self.startY = startY
-        self.consumer = self.text[-3]
+        self.consumer = self.text[-3].lower()
+        self.cabel=self.text[-4]
+        self.typeAutomat=self.text[-5]
         self.first_part_text=self.text[:6]
         self.second_part_text=[self.text[-2],self.text[-1]]
         self.doc=doc
         self.files()
         self.zeroPoint()
         self.transferringCoordinates()
+        self.res="резерв" in self.typeAutomat
+        if not self.res:
+            self.getConsumer()
+            self.cabel = CableType(self.msp,self.cabel, self.startX, self.startY -145)
+        else:
+            self.linesT=self.reserve()
         self.printer()
-        self.getConsumer()
 
     def getConsumer(self):
-        cs=Consumer(self.msp,self.doc,self.consumer,self.startX,self.startY-192.76)
+        if self.consumer not in ["сх. у наружным освещением","сх. у э. двиг. с кнопочным постом и каробкой зажимов","сх. у э. двиг. с кнопочным постом"]:
+            cs=Consumer(self.msp,self.doc,self.consumer,self.startX,self.startY-192.76)
 
     def files(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -37,6 +46,7 @@ class Automat:
             self.polylines = [list(map(float, line.split())) for line in file]
         with open(file_path3) as file:
             self.circle = [list(map(float, line.split())) for line in file]
+
 
     def zeroPoint(self):
         # Нахождение точки для смещения
@@ -97,17 +107,40 @@ class Automat:
                 'style': 'ROMANS',  # Применяем стиль Romans
                 'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
             })
-        cord=[self.startX -5,self.startX + 1]
-        for i in range(len(self.second_part_text)):
-            insertion_point = (cord[i], self.startY - 190)
-            self.msp.add_mtext(self.second_part_text[i], dxfattribs={
-                'insert': insertion_point,
-                'char_height': 2.5,
-                'rotation': 90,
-                'color': 1,
-                'style': 'ROMANS',  # Применяем стиль Romans
-                'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
-            })
+        if not self.res:
+            cord=[self.startX -5,self.startX + 1]
+            for i in range(len(self.second_part_text)):
+                insertion_point = (cord[i], self.startY - 190)
+                self.msp.add_mtext(self.second_part_text[i], dxfattribs={
+                    'insert': insertion_point,
+                    'char_height': 2.5,
+                    'rotation': 90,
+                    'color': 1,
+                    'style': 'ROMANS',  # Применяем стиль Romans
+                    'attachment_point': 1  # Аналог AttachmentPoint в pyautocad
+                })
+    def reserve(self):
+        max_distance = 132  # Максимальное допустимое расстояние
+        clipped_lines = []  # Список для хранения обрезанных прямых
+        for line in self.linesT:
+            color, x1, y1, x2, y2 = line  # Распаковываем данные прямой
+            # Проверяем, находятся ли обе точки в допустимой зоне
+            if abs(y1 - self.startY) <= max_distance and abs(y2 - self.startY) <= max_distance:
+                # Если обе точки в зоне, добавляем прямую без изменений
+                clipped_lines.append([color, x1, y1, x2, y2])
+            else:
+                # Если хотя бы одна точка выходит за пределы, обрезаем прямую
+                # Вычисляем новые координаты для точек, которые выходят за пределы
+                if abs(y1 - self.startY) > max_distance:
+                    # Если первая точка выходит за пределы, обрезаем её
+                    y1 = self.startY + max_distance if y1 > self.startY else self.startY - max_distance
+                if abs(y2 - self.startY) > max_distance:
+                    # Если вторая точка выходит за пределы, обрезаем её
+                    y2 = self.startY + max_distance if y2 > self.startY else self.startY - max_distance
+                # Добавляем обрезанную прямую в список
+                clipped_lines.append([color, x1, y1, x2, y2])
+
+        return clipped_lines
 
 
 if __name__ == '__main__':

@@ -32,6 +32,5 @@ class AutomatMagnet(Automat220):
         if self.consumer not in cons_name:
             cons = Consumer(self.msp, self.doc, self.consumer, self.startX + 4.35, self.startY - 139.83)
             self.msp.add_line((self.startX+4.35,self.startY-76), (self.startX+4.35,self.startY-139.83))
-            print(self.consumer)
         else:
             cons = Consumer(self.msp, self.doc, self.consumer, self.startX + 4.35, self.startY -76)

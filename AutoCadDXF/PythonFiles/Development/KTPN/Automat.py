@@ -9,7 +9,7 @@ from PythonFiles.Development.KTPN.CableType import CableType
 
 
 class Automat:
-    def __init__(self, msp, doc,startX, startY, text:list=["A","B","E","D"]):
+    def __init__(self, msp, doc,startX, startY, text):
         self.msp=msp
         self.text = text
         self.startX = startX

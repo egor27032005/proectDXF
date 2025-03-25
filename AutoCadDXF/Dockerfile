@@ -24,6 +24,6 @@ RUN apt-get update && apt-get install -y curl net-tools
 RUN chmod -R 777 /app
 COPY . ./
 ENV PYTHONPATH=""
-ENV PYTHONPATH="${PYTHONPATH}:/app"
+ENV PYTHONPATH="${PYTHONPATH}:/app2"
 EXPOSE 5000
-CMD ["python", "PythonFiles/Exchanger/app.py"]
+CMD ["python", "PythonFiles/Exchanger/app2.py"]

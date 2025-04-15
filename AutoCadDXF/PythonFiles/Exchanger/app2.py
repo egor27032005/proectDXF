@@ -35,17 +35,38 @@ def process_excel():
 
     try:
         # Читаем Excel файл с помощью pandas
-        df = pd.read_excel(file, header=None)
+        # df = pd.read_excel(file, header=None)
 
         # Преобразуем DataFrame в список списков (переменная data)
-        data = df.values.tolist()
+        # data = df.values.tolist()
+        # sheets_dict = pd.read_excel(file, engine="openpyxl", sheet_name=None)
 
-        # Создаем DXF документ
+        # Чтение Excel-файла в словарь DataFrame'ов
+        sheets_dict = pd.read_excel(file, engine="openpyxl", sheet_name=None)
+
+        # Преобразование каждого DataFrame в список списков (построчно)
+        result_dict = {
+            sheet_name: df.values.tolist()
+            for sheet_name, df in sheets_dict.items()
+        }
+
+        result_dict_with_headers = {
+            sheet_name: [df.columns.tolist()] + df.values.tolist()
+            for sheet_name, df in sheets_dict.items()
+        }
+
+        sheet_names = list(sheets_dict.keys())
+        ind_tit=sheet_names.index("титульник") if "титульник" in sheet_names else None
+        first_non_title = next((i for i, x in enumerate(sheet_names) if x != "титульник"), -1)
+        data=result_dict_with_headers[sheet_names[first_non_title]]
         doc = ezdxf.new("R2000")
         msp = doc.modelspace()
 
-        # Пример добавления текста в DXF файл
-        st = StartPreparation(data, option, msp, doc)
+        if ind_tit is None:
+            st = StartPreparation(data, option, msp, doc)
+        else:
+            tit = result_dict_with_headers[sheet_names[ind_tit]]
+            st=StartPreparation(data, option, msp, doc,tit)
 
         # Временный файл для сохранения DXF
         temp_file = "temp_output.dxf"

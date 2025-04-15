@@ -21,14 +21,14 @@ class PrinterNew():
             radius = circle[-1]
             cir=acad.model.AddCircle(center, radius)
             cir.color=circle[0]
-        with open('arcs.txt', 'r') as file:
-            arcs = [list(map(float, arc.split())) for arc in file]
-        for arc in arcs:
-            center = APoint(arc[0], arc[1])
-            radius = arc[-1]
-            start_angle = arc[3]
-            end_angle = arc[4]
-            acad.model.AddArc(center, radius, start_angle, end_angle)
+        # with open('arcs.txt', 'r') as file:
+        #     arcs = [list(map(float, arc.split())) for arc in file]
+        # for arc in arcs:
+        #     center = APoint(arc[0], arc[1])
+        #     radius = arc[-1]
+        #     start_angle = arc[3]
+        #     end_angle = arc[4]
+        #     acad.model.AddArc(center, radius, start_angle, end_angle)
 
         with open('polyline.txt', 'r') as file:
             numbers = [list(map(float, line.split())) for line in file]

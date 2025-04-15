@@ -1,0 +1,148 @@
+2025-03-30 19:05:13,250 - __main__ - INFO - Starting server...
+2025-03-30 19:05:13,250 - __main__ - INFO - Python version: 3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]
+2025-03-30 19:05:13,250 - __main__ - INFO - System encoding: utf-8
+2025-03-30 19:05:13,250 - __main__ - INFO - Current directory: C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger
+2025-03-30 19:05:13,253 - waitress - INFO - Serving on http://0.0.0.0:5000
+2025-03-30 19:05:22,523 - __main__ - INFO - File saved temporarily as temp_input.xlsx
+2025-03-30 19:05:22,532 - __main__ - INFO - Processing sheet 'Лист1' (24 rows x 30 cols)
+2025-03-30 19:05:22,537 - __main__ - INFO - Processing sheet 'Лист2' (21 rows x 28 cols)
+2025-03-30 19:05:22,541 - __main__ - INFO - Successfully loaded 2 sheets
+2025-03-30 19:05:22,541 - __main__ - INFO - Creating DXF document for option: НКУ
+2025-03-30 19:05:22,542 - ezdxf - INFO - creating ACAD_COLOR dictionary
+2025-03-30 19:05:22,542 - ezdxf - INFO - creating ACAD_GROUP dictionary
+2025-03-30 19:05:22,542 - ezdxf - INFO - creating ACAD_LAYOUT dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_MATERIAL dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_MLEADERSTYLE dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_MLINESTYLE dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_PLOTSETTINGS dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_PLOTSTYLENAME dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_SCALELIST dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_TABLESTYLE dictionary
+2025-03-30 19:05:22,543 - ezdxf - INFO - creating ACAD_VISUALSTYLE dictionary
+2025-03-30 19:05:22,545 - __main__ - INFO - Starting data processing...
+2025-03-30 19:05:22,993 - __main__ - ERROR - Error processing file: 'PreparationNKY' object has no attribute 'ind'
+Traceback (most recent call last):
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger\xui.py", line 119, in process_excel
+    st = StartPreparation(sheets_data, option, msp, doc)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\FullPreparation\StartPreparation.py", line 23, in __init__
+    self.distribution()
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\FullPreparation\StartPreparation.py", line 39, in distribution
+    self.pr = PreparationNKY(self.data, self.msp,self.doc)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\FullPreparation\PreparationNKY2.py", line 16, in __init__
+    self.partition_list=self.colums.pop(self.ind-1)
+                                        ^^^^^^^^
+AttributeError: 'PreparationNKY' object has no attribute 'ind'
+2025-03-30 19:06:08,141 - __main__ - INFO - Starting server...
+2025-03-30 19:06:08,141 - __main__ - INFO - Python version: 3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]
+2025-03-30 19:06:08,141 - __main__ - INFO - System encoding: utf-8
+2025-03-30 19:06:08,141 - __main__ - INFO - Current directory: C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger
+2025-03-30 19:06:08,145 - waitress - INFO - Serving on http://0.0.0.0:5000
+2025-03-30 19:06:20,792 - __main__ - INFO - File saved temporarily as temp_input.xlsx
+2025-03-30 19:06:20,803 - __main__ - INFO - Processing sheet 'Лист1' (24 rows x 30 cols)
+2025-03-30 19:06:20,808 - __main__ - INFO - Processing sheet 'Лист2' (21 rows x 28 cols)
+2025-03-30 19:06:20,812 - __main__ - INFO - Successfully loaded 2 sheets
+2025-03-30 19:06:20,812 - __main__ - INFO - Creating DXF document for option: НКУ
+2025-03-30 19:06:20,812 - ezdxf - INFO - creating ACAD_COLOR dictionary
+2025-03-30 19:06:20,813 - ezdxf - INFO - creating ACAD_GROUP dictionary
+2025-03-30 19:06:20,813 - ezdxf - INFO - creating ACAD_LAYOUT dictionary
+2025-03-30 19:06:20,813 - ezdxf - INFO - creating ACAD_MATERIAL dictionary
+2025-03-30 19:06:20,813 - ezdxf - INFO - creating ACAD_MLEADERSTYLE dictionary
+2025-03-30 19:06:20,813 - ezdxf - INFO - creating ACAD_MLINESTYLE dictionary
+2025-03-30 19:06:20,814 - ezdxf - INFO - creating ACAD_PLOTSETTINGS dictionary
+2025-03-30 19:06:20,814 - ezdxf - INFO - creating ACAD_PLOTSTYLENAME dictionary
+2025-03-30 19:06:20,814 - ezdxf - INFO - creating ACAD_SCALELIST dictionary
+2025-03-30 19:06:20,814 - ezdxf - INFO - creating ACAD_TABLESTYLE dictionary
+2025-03-30 19:06:20,814 - ezdxf - INFO - creating ACAD_VISUALSTYLE dictionary
+2025-03-30 19:06:20,815 - __main__ - INFO - Starting data processing...
+2025-03-30 19:06:20,815 - __main__ - INFO - Data processing completed
+2025-03-30 19:06:20,823 - __main__ - INFO - DXF saved temporarily as temp_output.dxf
+2025-03-30 19:06:20,824 - __main__ - ERROR - Error processing file: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'
+Traceback (most recent call last):
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger\xui.py", line 131, in process_excel
+    os.remove(temp_excel_file)
+PermissionError: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'
+2025-03-30 19:06:20,825 - xui - ERROR - Exception on /process-excel [POST]
+Traceback (most recent call last):
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger\xui.py", line 131, in process_excel
+    os.remove(temp_excel_file)
+PermissionError: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger\xui.py", line 149, in process_excel
+    os.remove(temp_excel_file)
+PermissionError: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'
+2025-03-30 19:07:31,160 - __main__ - INFO - Starting server...
+2025-03-30 19:07:31,161 - __main__ - INFO - Python version: 3.12.6 (tags/v3.12.6:a4a2d2b, Sep  6 2024, 20:11:23) [MSC v.1940 64 bit (AMD64)]
+2025-03-30 19:07:31,161 - __main__ - INFO - System encoding: utf-8
+2025-03-30 19:07:31,161 - __main__ - INFO - Current directory: C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger
+2025-03-30 19:07:31,164 - waitress - INFO - Serving on http://0.0.0.0:5000
+2025-03-30 19:07:46,213 - __main__ - INFO - File saved temporarily as temp_input.xlsx
+2025-03-30 19:07:46,219 - __main__ - INFO - Processing sheet 'Лист1' (24 rows x 30 cols)
+2025-03-30 19:07:46,222 - __main__ - INFO - Processing sheet 'Лист2' (21 rows x 28 cols)
+2025-03-30 19:07:46,224 - __main__ - INFO - Successfully loaded 2 sheets
+2025-03-30 19:07:46,224 - __main__ - INFO - Creating DXF document for option: НКУ
+2025-03-30 19:07:46,224 - ezdxf - INFO - creating ACAD_COLOR dictionary
+2025-03-30 19:07:46,224 - ezdxf - INFO - creating ACAD_GROUP dictionary
+2025-03-30 19:07:46,224 - ezdxf - INFO - creating ACAD_LAYOUT dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_MATERIAL dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_MLEADERSTYLE dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_MLINESTYLE dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_PLOTSETTINGS dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_PLOTSTYLENAME dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_SCALELIST dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_TABLESTYLE dictionary
+2025-03-30 19:07:46,225 - ezdxf - INFO - creating ACAD_VISUALSTYLE dictionary
+2025-03-30 19:07:46,226 - __main__ - INFO - Starting data processing...
+2025-03-30 19:07:46,226 - __main__ - INFO - Data processing completed
+2025-03-30 19:07:46,231 - __main__ - INFO - DXF saved temporarily as temp_output.dxf
+2025-03-30 19:07:46,231 - __main__ - ERROR - Error processing file: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'
+Traceback (most recent call last):
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger\xui.py", line 131, in process_excel
+    os.remove(temp_excel_file)
+PermissionError: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'
+2025-03-30 19:07:46,232 - xui - ERROR - Exception on /process-excel [POST]
+Traceback (most recent call last):
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger\xui.py", line 131, in process_excel
+    os.remove(temp_excel_file)
+PermissionError: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask_cors\extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\1\Desktop\проект\AutoCadDXF\PythonFiles\Exchanger\xui.py", line 149, in process_excel
+    os.remove(temp_excel_file)
+PermissionError: [WinError 32] Процесс не может получить доступ к файлу, так как этот файл занят другим процессом: 'temp_input.xlsx'

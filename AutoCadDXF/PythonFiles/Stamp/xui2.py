@@ -1,37 +1,52 @@
+import random
 import ezdxf
-from collections import defaultdict
 
-doc = ezdxf.readfile("Python.dxf")
+doc = ezdxf.new('R2010')
 msp = doc.modelspace()
 
-block_usage_count = defaultdict(int)
+def get_random_point():
+    x = random.randint(-100, 100)
+    y = random.randint(-100, 100)
+    return x, y
 
-inserts = msp.query('INSERT')
+# Создаем блок FLAG
+flag = doc.blocks.new(name='FLAG')
 
-def get_xdata_name(name):
-    try:
-        xdata = doc.blocks[name].block_record.get_xdata('AcDbBlockRepBTag')
-    except Exception as exc:
-        print(f"Error reading xdata for {name}")
-        print(exc)
-        return name
-    for tag, value in xdata:
-        if tag == 1005:
-            new_name = doc.entitydb[value].dxf.name
-            print(f"new name {new_name}")
-    return new_name
+# Добавляем атрибуты с подписями
+flag.add_text('NAME:', dxfattribs={
+    'height': 0.5,
+    'color': 3,
+    'insert': (0, -0.5)
+})
+flag.add_attdef('NAME', (1.5, -0.5), dxfattribs={'height': 0.5, 'color': 3})
 
-for insert in inserts:
-    block_name = insert.dxf.name
-    if block_name.startswith('*'):
-        print(f"anonymous name {block_name}")
-        name = get_xdata_name(block_name)
-    else:
-        name = block_name
-    block_usage_count[name] += 1
+flag.add_text('XPOS:', dxfattribs={
+    'height': 0.25,
+    'color': 4,
+    'insert': (0, -1.0)
+})
+flag.add_attdef('XPOS', (1.5, -1.0), dxfattribs={'height': 0.25, 'color': 4})
 
+flag.add_text('YPOS:', dxfattribs={
+    'height': 0.25,
+    'color': 4,
+    'insert': (0, -1.5)
+})
+flag.add_attdef('YPOS', (1.5, -1.5), dxfattribs={'height': 0.25, 'color': 4})
 
-print("Block Name | Usage Count")
-print("------------------------")
-for block_name, usage_count in block_usage_count.items():
-    print(f"{block_name} | {usage_count}")
+# Добавляем блоки в модель
+placing_points = [get_random_point() for _ in range(50)]
+
+for number, point in enumerate(placing_points):
+    values = {
+        'NAME': f"P({number + 1})",
+        'XPOS': f"= {point[0]:.3f}",
+        'YPOS': f"= {point[1]:.3f}"
+    }
+    random_scale = 0.5 + random.random() * 2.0
+    blockref = msp.add_blockref('FLAG', point, dxfattribs={
+        'rotation': 15
+    }).set_scale(random_scale)
+    blockref.add_auto_attribs(values)
+
+doc.saveas("1qblockfgfg_with_labels.dxf")

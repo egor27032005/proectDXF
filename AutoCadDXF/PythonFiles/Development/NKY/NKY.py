@@ -13,8 +13,8 @@ class NKY:
         self.doc=doc
         self.automat_consumers=automat_consumers
         self.part_list=part_list
-        self.automatX=0
-        self.automatY=0
+        self.automatX=100
+        self.automatY=100
         self.automats=AutomatsNKY(self.msp,self.doc,self.countAutomat1,self.countAutomat2,self.automatX,self.automatY,self.automat_consumers,self.part_list[2])
         point=self.automats.autPointsX[-2]+13.5
         self.direct=AutomaticDirectNKY(self.msp,self.automatX-9,self.automats.pointPartitionX,point,self.automatY)

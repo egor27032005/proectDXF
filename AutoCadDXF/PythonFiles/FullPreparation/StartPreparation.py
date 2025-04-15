@@ -9,11 +9,12 @@ from PythonFiles.FullPreparation.PreparationTit import PreparationTit
 
 
 class StartPreparation:
-    def __init__(self,data,type,msp,doc):
+    def __init__(self,data,type,msp,doc,titList=[]):
         self.data=data
         self.type=type
         self.msp=msp
         self.doc=doc
+        self.titList=titList
         self.copy_styles_to_new_doc()
 
         # self.doc.styles.new(name="RomansStyle", dxfattribs={
@@ -28,7 +29,7 @@ class StartPreparation:
         self.get_point()
 
         self.points=[self.max_y,self.min_y,self.max_x,self.min_x]
-        # self.pr=PreparationTit(self.doc,self.msp, self.data,self.points)
+        self.pr=PreparationTit(self.doc,self.msp, self.titList,self.points)
     def distribution(self):
         match self.type:
             case "КТПН1":

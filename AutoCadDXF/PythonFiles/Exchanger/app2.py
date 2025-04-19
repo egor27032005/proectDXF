@@ -4,7 +4,6 @@ import ezdxf
 import pandas as pd
 import os
 import logging
-
 from PythonFiles.FullPreparation.StartPreparation import StartPreparation
 
 app = Flask(__name__)
@@ -12,9 +11,11 @@ app = Flask(__name__)
 # Настройка логирования
 logging.basicConfig(level=logging.ERROR)
 
+
 @app.route('/health')
 def health_check():
     return "OK", 200
+
 
 @app.route('/process-excel', methods=['POST'])
 def process_excel():
@@ -29,36 +30,30 @@ def process_excel():
     if file.filename == '':
         return {"error": "No file selected"}, 400
 
-    # Проверяем, что файл имеет корректный формат
-    if not file.filename.endswith('.xlsx') and not file.filename.endswith('.xls'):
-        return {"error": "Unsupported file format. Only .xlsx and .xls are supported"}, 400
+    # Проверяем, что файл имеет корректный формат (добавляем .xlsm)
+    if not (file.filename.endswith('.xlsx') or
+            file.filename.endswith('.xls') or
+            file.filename.endswith('.xlsm')):
+        return {"error": "Unsupported file format. Only .xlsx, .xls and .xlsm are supported"}, 400
 
     try:
-        # Читаем Excel файл с помощью pandas
-        # df = pd.read_excel(file, header=None)
-
-        # Преобразуем DataFrame в список списков (переменная data)
-        # data = df.values.tolist()
-        # sheets_dict = pd.read_excel(file, engine="openpyxl", sheet_name=None)
+        # Определяем движок для чтения Excel в зависимости от расширения файла
+        engine = 'openpyxl' if file.filename.endswith('.xlsx') or file.filename.endswith('.xlsm') else 'xlrd'
 
         # Чтение Excel-файла в словарь DataFrame'ов
-        sheets_dict = pd.read_excel(file, engine="openpyxl", sheet_name=None)
+        sheets_dict = pd.read_excel(file, engine=engine, sheet_name=None)
 
         # Преобразование каждого DataFrame в список списков (построчно)
-        result_dict = {
-            sheet_name: df.values.tolist()
-            for sheet_name, df in sheets_dict.items()
-        }
-
         result_dict_with_headers = {
             sheet_name: [df.columns.tolist()] + df.values.tolist()
             for sheet_name, df in sheets_dict.items()
         }
 
         sheet_names = list(sheets_dict.keys())
-        ind_tit=sheet_names.index("титульник") if "титульник" in sheet_names else None
+        ind_tit = sheet_names.index("титульник") if "титульник" in sheet_names else None
         first_non_title = next((i for i, x in enumerate(sheet_names) if x != "титульник"), -1)
-        data=result_dict_with_headers[sheet_names[first_non_title]]
+        data = result_dict_with_headers[sheet_names[first_non_title]]
+
         doc = ezdxf.new("R2000")
         msp = doc.modelspace()
 
@@ -66,7 +61,7 @@ def process_excel():
             st = StartPreparation(data, option, msp, doc)
         else:
             tit = result_dict_with_headers[sheet_names[ind_tit]]
-            st=StartPreparation(data, option, msp, doc,tit)
+            st = StartPreparation(data, option, msp, doc, tit)
 
         # Временный файл для сохранения DXF
         temp_file = "temp_output.dxf"
@@ -93,7 +88,7 @@ def process_excel():
     except Exception as e:
         # Логируем ошибку и возвращаем сообщение об ошибке
         app.logger.error(f"Error processing file: {e}")
-        return {"error": "Failed to process the file"}, 500
+        return {"error": f"Failed to process the file: {str(e)}"}, 500
 
 
 if __name__ == '__main__':

@@ -8,7 +8,9 @@ class PrinterNew():
         with open('lines.txt', 'r') as file:
             lines = [list(map(float, line.split())) for line in file]
         for line in lines:
-            color=line[0]
+
+            # color=line[0]
+            color=27
             point1 = APoint(line[1], line[2])
             point2 = APoint(line[3], line[4])
             lin=acad.model.AddLine(point1, point2)

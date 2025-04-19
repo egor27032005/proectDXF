@@ -15,11 +15,7 @@ import java.util.Objects;
 
 @Service
 public class FileService {
-//    @Value("${PYTHON_SERVICE_URL}")
-//    private String pythonServiceUrl;
-
     private final String pythonServiceUrl = "http://localhost:5000/process-excel";
-//    @Value("${PYTHON_SERVICE_URL}")
 //    public String pythonServiceUrl = "http://python-app:5000/process-excel";
 
     public byte[] processExcel(MultipartFile file, String option) {
@@ -35,20 +31,9 @@ public class FileService {
             }
 
             // Проверка на корректность формата файла
-            if (!Objects.requireNonNull(file.getOriginalFilename()).endsWith(".xlsx") && !file.getOriginalFilename().endsWith(".xls")) {
-                throw new IllegalArgumentException("Неподдерживаемый формат файла. Поддерживаются только .xlsx и .xls");
-            }
-
-            // Чтение Excel файла
-            Workbook workbook = WorkbookFactory.create(file.getInputStream());
-            Sheet sheet = workbook.getSheetAt(0);
-            StringBuilder data = new StringBuilder();
-
-            for (Row row : sheet) {
-                for (Cell cell : row) {
-                    data.append(cell.toString()).append(",");
-                }
-                data.append("\n");
+            String filename = Objects.requireNonNull(file.getOriginalFilename());
+            if (!filename.endsWith(".xlsx") && !filename.endsWith(".xls") && !filename.endsWith(".xlsm")) {
+                throw new IllegalArgumentException("Неподдерживаемый формат файла. Поддерживаются только .xlsx, .xls и .xlsm");
             }
 
             // Создаем MultiValueMap для отправки файла и параметра

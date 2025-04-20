@@ -39,6 +39,7 @@ class CreateBlocks:
             35: self.block35,
             36: self.block36,
             37: self.block37,
+            40: self.block40,
             41: self.block41,
             51: self.block51,
         }
@@ -318,11 +319,30 @@ class CreateBlocks:
         block.add_line((-2.76, 0), (-2.76, 2.7), dxfattribs={'color': 7})
         block.add_circle((-2.76, 1.32), 1.35)
 
+    def block40(self):
+        if self.BLOCK_NAME in self.doc.blocks:
+            return
+        block = self.doc.blocks.new(name=self.BLOCK_NAME)
+        block.add_lwpolyline([(0, 0), (2.5, 0), (2.5, 5), (0, 5), (0, 0)], close=True, dxfattribs={'color': 7})
+        block.add_line((0, 0.625), (2.5, 3.125), dxfattribs={'color': 7})
+        block.add_line((0.625, 0), (2.5, 1.875), dxfattribs={'color': 7})
+        block.add_line((1.875, 0), (2.5, 0.625), dxfattribs={'color': 7})
+        block.add_line((0, 1.875), (2.5, 4.375), dxfattribs={'color': 7})
+        block.add_line((0, 3.125), (1.875, 5), dxfattribs={'color': 7})
+        block.add_line((0, 4.375), (0.625, 5), dxfattribs={'color': 7})
+
+        block.add_line((0, 0.625), (0.625, 0), dxfattribs={'color': 7})
+        block.add_line((0, 1.875), (1.875, 0), dxfattribs={'color': 7})
+        block.add_line((0, 3.125), (2.5, 0.625), dxfattribs={'color': 7})
+        block.add_line((0, 4.375), (2.5, 1.875), dxfattribs={'color': 7})
+        block.add_line((0.625, 5), (2.5, 3.125), dxfattribs={'color': 7})
+        block.add_line((1.875, 5), (2.5, 4.375), dxfattribs={'color': 7})
+
     def block41(self):
         if self.BLOCK_NAME in self.doc.blocks:
             return
         block = self.doc.blocks.new(name=self.BLOCK_NAME)
-        center = (1.81, 0)
+        center = (-1.81, 0)
         radius = 1.81
         start_angle = 0
         end_angle = 180
@@ -367,7 +387,7 @@ if __name__ == "__main__":
     doc = ezdxf.new('R2010', setup=True)
     doc.units = ezdxf.units.MM
     msp = doc.modelspace()
-    ar=[14,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,41,51]
+    ar=[14,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,40,41,51]
     for ind,a in enumerate(ar):
         c=CreateBlocks(doc,msp,ind*10,0,a,0,1)
 
@@ -376,5 +396,5 @@ if __name__ == "__main__":
 
 
     # 4. Сохраняем документ (это будет в основной программе)
-    doc.saveas("11111111.dxf")
+    doc.saveas("11.dxf")
     print("Файл fixed_blocks.dxf успешно создан")

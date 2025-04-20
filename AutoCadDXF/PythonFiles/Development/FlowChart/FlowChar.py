@@ -1,21 +1,28 @@
+from PythonFiles.Development.FlowChart.BG import BG
 from PythonFiles.Development.FlowChart.BoreholeOilIndustry import BoreholeOilIndustry
+from PythonFiles.Development.FlowChart.DrainageTank import DrainageTank
 from PythonFiles.Development.FlowChart.IY import IY
 from PythonFiles.Development.FlowChart.Pipe import Pipe
 from PythonFiles.Development.FlowChart.WaterIntakeWell import WaterIntakeWell
+from PythonFiles.Development.FlowChart.YDX import YDX
 
 
 class FlowChar:
-    def __init__(self,doc,msp,count_borehole_oil_industry,count_water_intake_well):
+    def __init__(self,doc,msp,name,count_borehole_oil_industry,count_water_intake_well):
         self.doc=doc
         self.msp=msp
+        self.name=name
         self.count_borehole_oil_industry=count_borehole_oil_industry
         self.count_water_intake_well=count_water_intake_well
         self.startX=0
         self.startY=0
         self.pipe = Pipe(self.doc, self.msp)
-        self.iy=IY(self.doc,self.msp,self.startX,self.startY,self.count_borehole_oil_industry)
+        self.iy=IY(self.doc,self.msp,self.startX,self.startY,self.count_borehole_oil_industry,self.name)
         self.create_borehole_oil_industry()
         self.create_water_intake_well()
+        self.drainage_tank=DrainageTank(self.doc,self.msp,self.startX-100,self.startY-100)
+        self.bg = BG(self.doc, self.msp, self.startX+100, self.startY+250, self.name)
+        self.ydx = YDX(self.doc, self.msp, self.startX-(count_borehole_oil_industry//2)*100-150, self.startY-50, self.name)
 
 
     def create_borehole_oil_industry(self):

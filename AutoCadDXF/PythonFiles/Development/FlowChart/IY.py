@@ -4,12 +4,13 @@ from PythonFiles.Development.FlowChart.Block.CreateBlocks import CreateBlocks
 
 
 class IY:
-    def __init__(self,doc,msp,x,y,count):
+    def __init__(self,doc,msp,x,y,count,name):
         self.doc=doc
         self.msp=msp
         self.count=count
         self.x=x
         self.y=y
+        self.name="ИУ-"+name
         self.part1()
         self.create_points()
         self.right_part()
@@ -22,6 +23,7 @@ class IY:
         self.msp.add_line((self.x+59, self.y), (self.x+59, self.y+self.length), dxfattribs={'color': 7})
         self.msp.add_line((self.x, self.y+self.length), (self.x+59, self.y+self.length), dxfattribs={'color': 7})
         self.msp.add_line((self.x, self.y+self.length), (self.x, self.y), dxfattribs={'color': 7})
+
     def create_points(self):
         self.point = [9 + i * 11 for i in range(self.count_leng)]
         self.left_points = [[self.x, y] for y in self.point]
@@ -46,9 +48,9 @@ class IY:
 
             cr=CreateBlocks(self.doc,self.msp,point[0]-13,point[1]-3,25,0,1)
     def tex(self):
-        self.msp.add_mtext("ИУ", dxfattribs={
-            'insert': (self.x+40,self.y+43),
-            'char_height': 20,
+        self.msp.add_mtext(self.name, dxfattribs={
+            'insert': (self.x+30,self.y+43),
+            'char_height': 16,
 
             'color': 7,
             'style': 'ROMANS',  # Применяем стиль Romans

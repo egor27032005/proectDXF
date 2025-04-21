@@ -33,6 +33,24 @@ class YDX:
         self.put_line(self.startX, self.startY + self.hight, self.startX + self.length, self.startY + self.hight)
         self.put_line(self.startX, self.startY + self.hight, self.startX, self.startY)
 
+        if 'DGNSTYLE4' not in self.doc.linetypes:
+            self.doc.linetypes.new(
+                name='DGNSTYLE4',
+                dxfattribs={
+                    'description': 'DGN Style 4 - Dash 10, Gap 5, Dot, Gap 5',
+                    'pattern': 'A,10,-5,0,-5',  # Черта (10), Пробел (5), Точка (0), Пробел (5)
+                    'length': 20.0  # Общая длина шаблона (10 + 5 + 0 + 5 = 20)
+                }
+            )
+
+        self.msp.add_lwpolyline([
+            (self.startX - 6, self.startY - 10),
+            (self.startX - 6, self.startY + 89),
+            (self.startX + 97, self.startY + 89),
+            (self.startX + 97, self.startY - 10),
+            (self.startX - 6, self.startY - 10),
+        ], dxfattribs={"layer": "Tehnolog", "color": 7, "linetype": "DGNSTYLE4"})
+
     def blue_line(self):
         self.put_line(self.startX, self.startY + 68, self.startX - 12, self.startY + 68, 5)
         self.put_line(self.startX - 12, self.startY + 68, self.startX - 12, self.startY + 111, 5)
@@ -113,6 +131,7 @@ class YDX:
         CreateBlocks(self.doc, self.msp, start_x + 92.35, start_y + 40.25, 32, 0, 7/4.5)
 
         self.put_line(start_x + 100.3, start_y + 42, start_x + 114, start_y + 42, 6)
+
 
 
 

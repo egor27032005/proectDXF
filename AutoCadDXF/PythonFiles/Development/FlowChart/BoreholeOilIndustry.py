@@ -62,6 +62,24 @@ class BoreholeOilIndustry:
             self.pipe_start_pointX = x - 51
             self.pipe_start_pointY = y - 14
 
+        if 'DGNSTYLE4' not in self.doc.linetypes:
+            self.doc.linetypes.new(
+                name='DGNSTYLE4',
+                dxfattribs={
+                    'description': 'DGN Style 4 - Dash 10, Gap 5, Dot, Gap 5',
+                    'pattern': 'A,10,-5,0,-5',  # Черта (10), Пробел (5), Точка (0), Пробел (5)
+                    'length': 20.0  # Общая длина шаблона (10 + 5 + 0 + 5 = 20)
+                }
+            )
+
+        self.msp.add_lwpolyline([
+            (self.startX + 24.34, self.startY - 40),
+            (self.startX + 24.34, self.startY + 24),
+            (self.startX + 47.7, self.startY + 24),
+            (self.startX + 47.7, self.startY - 40),
+            (self.startX + 24.34, self.startY - 40),
+        ], dxfattribs={"layer": "Tehnolog", "color": 7, "linetype": "DGNSTYLE4"})
+
     def bottom(self,x,y):
         self.msp.add_line((x-10, y), (x +10, y), dxfattribs={'color': 7})
         for x0 in [x-6,x-3,x,x+3,x+6,x+9]:

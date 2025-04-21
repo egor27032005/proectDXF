@@ -6,24 +6,26 @@ from PythonFiles.Development.FlowChart.Block.BlockSettings import BlockSettings
 
 
 class CreateBlocks:
-    def __init__(self,doc,msp,x,y,ind,rotation,scale):
-        self.doc=doc
-        self.msp=msp
-        self.x=x
-        self.y=y
-        self.ind=ind
-        self.rotation=rotation
-        self.scale=scale
-        settings=BlockSettings()
-        self.BLOCK_NAME=(str)(self.ind)
+    def __init__(self, doc, msp, x, y, ind, rotation, scale):
+        self.doc = doc
+        self.msp = msp
+        self.x = x
+        self.y = y
+        self.ind = ind
+        self.rotation = rotation
+        self.scale = scale
+        settings = BlockSettings()
+        self.BLOCK_NAME = (str)(self.ind)
         print(self.ind)
         self.create_block()
         self.insert_block()
+
     def create_block(self):
         block_handlers = {
             14: self.block14,
             20: self.block20,
             21: self.block21,
+            22: self.block22,
             23: self.block23,
             24: self.block24,
             25: self.block25,
@@ -39,8 +41,12 @@ class CreateBlocks:
             35: self.block35,
             36: self.block36,
             37: self.block37,
+            38: self.block38,
+            39: self.block39,
             40: self.block40,
             41: self.block41,
+            42: self.block42,
+            43: self.block43,
             51: self.block51,
         }
         handler = block_handlers.get(self.ind)
@@ -137,6 +143,17 @@ class CreateBlocks:
             [(3.5, 3.5), (3, 2), (2, 3), (3.5, 3.5)],
             is_closed=True
         )
+
+    def block22(self):
+        if self.BLOCK_NAME in self.doc.blocks:
+            return
+        block = self.doc.blocks.new(name=self.BLOCK_NAME)
+        block.add_line((0, 0), (4, 0), dxfattribs={"color": 7})
+        block.add_line((0, 7), (4, 7), dxfattribs={"color": 7})
+        block.add_arc(center=(0, 3.5), radius=3.5, start_angle=90, end_angle=270, dxfattribs={"color": 7})
+        block.add_arc(center=(4, 3.5), radius=3.5, start_angle=270, end_angle=450, dxfattribs={"color": 7})
+        block.add_circle((0.4, 3.5), 1.5, dxfattribs={"color": 7})
+        block.add_circle((3.6, 3.5), 1.5, dxfattribs={"color": 7})
 
     def block23(self):
         if self.BLOCK_NAME in self.doc.blocks:
@@ -282,7 +299,7 @@ class CreateBlocks:
         block = self.doc.blocks.new(name=self.BLOCK_NAME)
         hatch_left = block.add_hatch()
         hatch_left.set_solid_fill(color=7)
-        hatch_left.paths.add_polyline_path([(0, 0), (0, 3.35), (6.7, 0), (6.7, 3.35), (0, 0)],is_closed=True)
+        hatch_left.paths.add_polyline_path([(0, 0), (0, 3.35), (6.7, 0), (6.7, 3.35), (0, 0)], is_closed=True)
 
         block.add_line((3.35, 0), (3.35, 3.35), dxfattribs={'color': 7})
 
@@ -290,7 +307,8 @@ class CreateBlocks:
         if self.BLOCK_NAME in self.doc.blocks:
             return
         block = self.doc.blocks.new(name=self.BLOCK_NAME)
-        block.add_lwpolyline([(0, 0), (0, 1.575), (4.5, 3.038), (4.5, -1.463), (0, 0)], close=True, dxfattribs={'color': 7})
+        block.add_lwpolyline([(0, 0), (0, 1.575), (4.5, 3.038), (4.5, -1.463), (0, 0)], close=True,
+                             dxfattribs={'color': 7})
 
     def block37(self):
         if self.BLOCK_NAME in self.doc.blocks:
@@ -300,24 +318,33 @@ class CreateBlocks:
         block.add_line((0, -1.35), (0, 1.35), dxfattribs={'color': 7})
 
         block.add_line((1.35, 0), (2.75, 0), dxfattribs={'color': 7})
-        block.add_lwpolyline([(2.75, -1.35), (2.75, 1.35), (6.9, -1.35), (6.9, 1.35), (2.75, -1.35)], close=True, dxfattribs={'color': 7})
+        block.add_lwpolyline([(2.75, -1.35), (2.75, 1.35), (6.9, -1.35), (6.9, 1.35), (2.75, -1.35)], close=True,
+                             dxfattribs={'color': 7})
         block.add_line((6.9, 0), (8.3, 0))
 
     def block38(self):
         if self.BLOCK_NAME in self.doc.blocks:
             return
         block = self.doc.blocks.new(name=self.BLOCK_NAME)
-        hatch_left = block.add_hatch()
-        hatch_left.set_solid_fill(color=7)  # Сплошная заливка красным
-        hatch_left.paths.add_polyline_path(
-            [(0, 0), (2.63, 0), (4.15, 0), (4.15, 2.63), (0, 0)],
-            is_closed=True
+        block.add_lwpolyline([(0, 0), (2, 0), (2, 5), (0, 5)], close=False, dxfattribs={'color': 7})
+        block.add_line((1, 0.5), (1, 4.5), dxfattribs={'color': 7})
+        block.add_arc(
+            center=(1, 2.5),
+            radius=2,
+            start_angle=90,
+            end_angle=270,
+            dxfattribs={'color': 7}
         )
-        block.add_line((4.15, 1.32), (5.56, 1.32), dxfattribs={'color': 7})
-        block.add_line((0, 1.32), (-1.41, 1.32), dxfattribs={'color': 7})
 
-        block.add_line((-2.76, 0), (-2.76, 2.7), dxfattribs={'color': 7})
-        block.add_circle((-2.76, 1.32), 1.35)
+    def block39(self):
+        if self.BLOCK_NAME in self.doc.blocks:
+            return
+        block = self.doc.blocks.new(name=self.BLOCK_NAME)
+        block.add_lwpolyline([(0, 0), (0, 0.9), (1.8, 2.25), (1.8, -1.35), (0, 0)], close=True, dxfattribs={'color': 7})
+        block.add_lwpolyline([(1.8, 0), (1.8, 0.9), (3.6, 2.25), (3.6, -1.35), (1.8, 0)], close=True,
+                             dxfattribs={'color': 7})
+        block.add_lwpolyline([(3.6, 0), (3.6, 0.9), (5.4, 2.25), (5.4, -1.35), (3.6, 0)], close=True,
+                             dxfattribs={'color': 7})
 
     def block40(self):
         if self.BLOCK_NAME in self.doc.blocks:
@@ -354,32 +381,34 @@ class CreateBlocks:
         )
         block.add_line((0, 0), (0, -4), dxfattribs={'color': 7})
 
+    def block42(self):
+        if self.BLOCK_NAME in self.doc.blocks:
+            return
+        block = self.doc.blocks.new(name=self.BLOCK_NAME)
+        block.add_lwpolyline([(0, 0), (7, 0), (3.5, 2)], close=False, dxfattribs={"color": 7})
+
+    def block43(self):
+        if self.BLOCK_NAME in self.doc.blocks:
+            return
+        block = self.doc.blocks.new(name=self.BLOCK_NAME)
+        block.add_lwpolyline([(2.4, 1.875), (0, 1.875), (0, -1.875), (2.4, -1.875)], close=False,
+                             dxfattribs={"color": 7, "lineweight": 30})
+        block.add_line((0, 0), (-5.4, 0), dxfattribs={"color": 7, "lineweight": 30})
+
     def block51(self):
         if self.BLOCK_NAME in self.doc.blocks:
             return
         block = self.doc.blocks.new(name=self.BLOCK_NAME)
-        block.add_circle(
-            center=(0, 0),
-            radius=2.75,
-            dxfattribs={
-                'color': 1,
-                'layer': '0'
-            }
-        )
-        block.add_text(
-            text="PG",
-            height=2.0,
-            dxfattribs={
-                'insert': (0, 0),
-                'style': 'Standard',
-                'layer': '0',
-                'color': 1,
-                'halign': 1,
-                'valign': 3
-            }
-        )
-
-
+        block.add_circle(center=(0, 0), radius=2.5, dxfattribs={'color': 1, })
+        block.add_lwpolyline(
+            [(-1, 0.5), (-1, 2), (-0.5, 2), (-0.3, 1.93), (-0.25, 1.88), (-0.2, 1.74), (-0.2, 1.54), (-0.25, 1.4),
+             (-0.3, 1.34), (-0.5, 1.27), (-1, 1.27)],
+            close=False, dxfattribs={'color': 1, })
+        block.add_lwpolyline(
+            [(0.7, 1.1), (1, 1.1), (1, 0.77), (0.95, 0.63), (0.84, 0.53), (0.74, 0.5), (0.52, 0.5), (0.42, 0.53),
+             (0.33, 0.63), (0.28, 0.77), (0.23, 1), (0.23, 1.36),
+             (0.23, 1.57), (0.27, 1.72), (0.37, 1.86), (0.5, 2), (0.73, 2), (0.85, 1.93), (0.97, 1.78), (1, 1.64)],
+            close=False, dxfattribs={'color': 1, })
 
 
 if __name__ == "__main__":
@@ -387,13 +416,9 @@ if __name__ == "__main__":
     doc = ezdxf.new('R2010', setup=True)
     doc.units = ezdxf.units.MM
     msp = doc.modelspace()
-    ar=[14,20,21,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,40,41,51]
-    for ind,a in enumerate(ar):
-        c=CreateBlocks(doc,msp,ind*10,0,a,0,1)
-
-
-
-
+    ar = [51, 22]
+    for ind, a in enumerate(ar):
+        c = CreateBlocks(doc, msp, ind * 10, 0, a, 0, 1)
 
     # 4. Сохраняем документ (это будет в основной программе)
     doc.saveas("11.dxf")

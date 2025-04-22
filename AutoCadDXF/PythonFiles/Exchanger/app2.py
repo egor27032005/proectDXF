@@ -25,25 +25,15 @@ def process_excel():
 
     file = request.files['file']  # Получаем файл
     option = request.form['option']  # Получаем выбранный параметр
-
-    # Проверяем, что файл был загружен
     if file.filename == '':
         return {"error": "No file selected"}, 400
-
-    # Проверяем, что файл имеет корректный формат (добавляем .xlsm)
     if not (file.filename.endswith('.xlsx') or
             file.filename.endswith('.xls') or
             file.filename.endswith('.xlsm')):
         return {"error": "Unsupported file format. Only .xlsx, .xls and .xlsm are supported"}, 400
-
     try:
-        # Определяем движок для чтения Excel в зависимости от расширения файла
         engine = 'openpyxl' if file.filename.endswith('.xlsx') or file.filename.endswith('.xlsm') else 'xlrd'
-
-        # Чтение Excel-файла в словарь DataFrame'ов
         sheets_dict = pd.read_excel(file, engine=engine, sheet_name=None)
-
-        # Преобразование каждого DataFrame в список списков (построчно)
         result_dict_with_headers = {
             sheet_name: [df.columns.tolist()] + df.values.tolist()
             for sheet_name, df in sheets_dict.items()
@@ -57,11 +47,12 @@ def process_excel():
         doc = ezdxf.new("R2000")
         msp = doc.modelspace()
 
-        if ind_tit is None:
+        if option!="техСхем":
             st = StartPreparation(data, option, msp, doc)
         else:
-            tit = result_dict_with_headers[sheet_names[ind_tit]]
-            st = StartPreparation(data, option, msp, doc, tit)
+            # tit = result_dict_with_headers[sheet_names[ind_tit]]
+            data2=pd.read_excel(file, engine='openpyxl', header=None)
+            st = StartPreparation(data, option, msp, doc)
 
         # Временный файл для сохранения DXF
         temp_file = "temp_output.dxf"

@@ -1,5 +1,7 @@
 import itertools
 
+from PythonFiles.Development.FlowChart.Block.CreateBlocks import CreateBlocks
+
 
 class DrainageTank:
     def __init__(self,doc,msp,startX,startY):
@@ -56,7 +58,26 @@ class DrainageTank:
         self.bottom(26,self.startX-20.38,self.startY+13.13)
         self.bottom(75,self.startX+33.29,self.startY+13.13)
         self.msp.add_line((self.startX+26.22, self.startY+13.13), (self.startX+33.29, self.startY+13.13), dxfattribs={'color': 7,"layer": "To_dim"})
-        self.msp.add_line((self.startX+12.85, self.startY+13.13), (self.startX+18.48, self.startY+13.13), dxfattribs={'color': 7,"layer": "To_dim"})
+        self.msp.add_line((self.startX+13.12, self.startY+13.13), (self.startX+18.72, self.startY+13.13), dxfattribs={'color': 7,"layer": "To_dim"})
+
+        c=CreateBlocks(self.doc,self.msp,self.startX-12,self.startY+33,"41-blue",0,1,171,"To_dim")
+        c.block41()
+        c.insert_block()
+        self.put_line(self.startX -12, self.startY+33, self.startX -12, self.startY + 14.4,"To_dim",171)
+        self.put_line(self.startX -12, self.startY +  14.4, self.startX -7.06, self.startY + 14.4,"To_dim",171)
+        self.put_line(self.startX -1.06, self.startY +  14.4, self.startX +0.4, self.startY + 14.4,"To_dim",171)
+        self.put_line(self.startX +2.65, self.startY +  14.4, self.startX +4.21, self.startY + 14.4,"To_dim",171)
+
+        self.put_line(self.startX +0.4, self.startY +  14.4, self.startX +2.65, self.startY + 13.2,"To_dim",171)
+        self.put_line(self.startX +0.4, self.startY +  14.4, self.startX +2.65, self.startY + 15.6,"To_dim",171)
+        self.put_line(self.startX +2.65, self.startY +  13.2, self.startX +2.65, self.startY + 15.6,"To_dim",171)
+
+        self.put_line(self.startX +4.21, self.startY +  13.6, self.startX +4.21, self.startY + 15,"To_dim",7)
+        self.put_line(self.startX +4.71, self.startY +  13.6, self.startX +4.71, self.startY + 15,"To_dim",7)
+        self.put_line(self.startX +4.71, self.startY +  14.4, self.startX +5.62, self.startY + 14.4,"To_dim",7)
+
+        CreateBlocks(self.doc,self.msp,self.startX-1.06,self.startY+13.13,40,90,1.4,layer="To_dim")
+
     def printer(self):
         for line in self.linesT:
             color = int(line[0])
@@ -80,6 +101,15 @@ class DrainageTank:
                     "layer": self.layer_name,
                 }
             )
+    def put_line(self, x1, y1, x2, y2,layer_name = "Tehnolog",color=7):
+        self.msp.add_line(
+            start=(x1, y1),
+            end=(x2, y2),
+            dxfattribs={
+                "layer": layer_name,
+                "color":color
+            }
+        )
     def tex(self):
         self.msp.add_mtext("ЕД", dxfattribs={
             'insert': (self.startX+15,self.startY-5),

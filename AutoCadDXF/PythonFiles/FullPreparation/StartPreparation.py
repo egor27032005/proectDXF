@@ -82,11 +82,11 @@ class StartPreparation:
         for layer in src_doc.layers:
             # Пропускаем слой "0" и скрытые слои (начинающиеся с *)
             if layer.dxf.name != "0" and not layer.dxf.name.startswith('*'):
-                print(f"Слой: {layer.dxf.name}")
-                print(f"Цвет: {layer.dxf.color}")
-                print(f"Тип линии: {layer.dxf.linetype}")
-                print(f"Толщина линии: {layer.dxf.lineweight}")
-                print("-" * 40)
+                # print(f"Слой: {layer.dxf.name}")
+                # print(f"Цвет: {layer.dxf.color}")
+                # print(f"Тип линии: {layer.dxf.linetype}")
+                # print(f"Толщина линии: {layer.dxf.lineweight}")
+                # print("-" * 40)
 
                 # Проверяем, существует ли уже такой слой в целевом документе
                 if layer.dxf.name not in self.doc.layers:
@@ -96,8 +96,8 @@ class StartPreparation:
                         linetype='Continuous',
                         lineweight=layer.dxf.lineweight
                     )
-                else:
-                    print(f"Слой '{layer.dxf.name}' уже существует, пропускаем")
+                # else:
+                #     print(f"Слой '{layer.dxf.name}' уже существует, пропускаем")
 
 
 

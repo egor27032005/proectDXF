@@ -11,6 +11,7 @@ class PreparationFlowChar:
         self.count_borehole_oil_industry=5
         self.count_water_intake_well=3
         self.name="27"
+        self.funk()
         self.flowChar=FlowChar(self.doc,self.msp,self.name,self.count_borehole_oil_industry,self.count_water_intake_well)
     def funk(self):
         self.objects = {}  # словарь для всех объектов со всеми параметрами

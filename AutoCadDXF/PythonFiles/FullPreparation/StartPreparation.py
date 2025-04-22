@@ -10,12 +10,12 @@ from PythonFiles.FullPreparation.PreparationTit import PreparationTit
 
 
 class StartPreparation:
-    def __init__(self,data,type,msp,doc,titList=[]):
-        self.data=data
-        self.type=type
-        self.msp=msp
-        self.doc=doc
-        self.titList=titList
+    def __init__(self, data, type, msp, doc, titList=[]):
+        self.data = data
+        self.type = type
+        self.msp = msp
+        self.doc = doc
+        self.titList = titList
         self.copy_styles_to_new_doc()
         self.copy_layers_between_dxf()
 
@@ -30,19 +30,25 @@ class StartPreparation:
         self.max_y = float('-inf')
         self.get_point()
 
-        self.points=[self.max_y,self.min_y,self.max_x,self.min_x]
+        self.points = [self.max_y, self.min_y, self.max_x, self.min_x]
         # self.pr=PreparationTit(self.doc,self.msp, self.titList,self.points)
+
     def distribution(self):
-        match self.type:
-            case "КТПН1":
-                self.pr=PreparationKTPN1(self.data,self.msp,self.doc)
-            case "КТПН2":
-                self.pr=PreparationKTPN2(self.data,self.msp,self.doc)
-            case "НКУ":
-                self.pr = PreparationNKY(self.data, self.msp,self.doc)
-            case "техСхем":
-                self.pr=PreparationFlowChar(self.data,self.msp,self.doc)
+        handlers = {
+            "КТПН1": PreparationKTPN1,
+            "КТПН2": PreparationKTPN2,
+            "НКУ": PreparationNKY,
+            "техСхем": PreparationFlowChar
+        }
+
+        handler_class = handlers.get(self.type)
+        if handler_class:
+            self.pr = handler_class(self.data, self.msp, self.doc)
+            if self.type == "техСхем":
                 print("xui")
+        else:
+            # Обработка случая, когда тип не найден
+            raise ValueError(f"Неизвестный тип: {self.type}")
 
     import ezdxf
 
@@ -99,9 +105,7 @@ class StartPreparation:
                 # else:
                 #     print(f"Слой '{layer.dxf.name}' уже существует, пропускаем")
 
-
-
-    def update_bounds(self,x, y):
+    def update_bounds(self, x, y):
         if x < self.min_x:
             self.min_x = x
         if x > self.max_x:
@@ -122,7 +126,3 @@ class StartPreparation:
             elif entity.dxftype() == 'LWPOLYLINE':
                 for point in entity.get_points():
                     self.update_bounds(point[0], point[1])
-
-
-
-

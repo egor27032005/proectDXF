@@ -4,26 +4,28 @@ from PythonFiles.Development.FlowChart.FlowChar import FlowChar
 
 
 class PreparationFlowChar:
-    def __init__(self,data,msp,doc):
-        self.data=data
-        self.msp=msp
-        self.doc=doc
-        self.count_borehole_oil_industry=5
-        self.count_water_intake_well=3
-        self.name="27"
+    def __init__(self, data, msp, doc):
+        self.data = data[1:]
+        self.msp = msp
+        self.doc = doc
+        self.count_borehole_oil_industry = 5
+        self.count_water_intake_well = 3
+        self.name = "27"
         self.funk()
-        self.flowChar=FlowChar(self.doc,self.msp,self.name,self.count_borehole_oil_industry,self.count_water_intake_well)
+        self.flowChar = FlowChar(self.doc, self.msp, self.name, self.count_borehole_oil_industry,
+                                 self.count_water_intake_well)
+
     def funk(self):
         self.objects = {}  # словарь для всех объектов со всеми параметрами
         curr_object = ""  # какой объект заполняется сейчас
 
         for line in self.data:
+            print(line)
             if type(line[0]) == str and line[0] not in self.objects:  # если в столбце А начался новый объект то
                 curr_object = line[0]  # меняем текущий объект заполнения
                 self.objects[curr_object] = {}  # словарь для информации по этому конкретному объекту
-                for n in range(line[1]):
-                    self.objects[curr_object][line[2].replace("№",
-                                                         str(n + 1))] = {}  # создаем необходимое количество словарей для отдельных объектов этого типа
+                for n in range(int(line[1])):
+                    self.objects[curr_object][line[2].replace("№", str(n + 1))] = {}  # создаем необходимое количество словарей для отдельных объектов этого типа
             else:
                 if line[2] == "Параметр":  # игнорируем заполнение "шапки" одного объекта
                     continue

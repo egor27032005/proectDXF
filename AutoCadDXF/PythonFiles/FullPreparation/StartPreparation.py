@@ -7,6 +7,7 @@ from PythonFiles.FullPreparation.PreparationKTPN1 import PreparationKTPN1
 from PythonFiles.FullPreparation.PreparationKTPN2 import PreparationKTPN2
 from PythonFiles.FullPreparation.PreparationNKY2 import PreparationNKY
 from PythonFiles.FullPreparation.PreparationTit import PreparationTit
+from PythonFiles.Stamp.attemp_Sofa import Stamp
 
 
 class StartPreparation:
@@ -31,6 +32,7 @@ class StartPreparation:
         self.get_point()
 
         self.points = [self.max_y, self.min_y, self.max_x, self.min_x]
+        self.pr = Stamp(self.doc, self.msp, self.points)
         # self.pr=PreparationTit(self.doc,self.msp, self.titList,self.points)
 
     def distribution(self):

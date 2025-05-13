@@ -148,8 +148,6 @@ class Explication:
             all_lines.append(one_line)
         return all_lines
 
-    def print_data(self):
-        print(self.data)
 
     def split_string_by_length(self, text, max_length):
         words = text.split()  # Разбиваем строку по пробелам
